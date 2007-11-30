@@ -1,0 +1,19 @@
+SPG
+===
+
+The Simple Password Generator is a simple way to remember passwords. You
+choose a single secret phrase. For a password for a site "website", it
+generates the password as the first eight characters of the MD5 hash of (
+secret-prase + "website").
+
+You just have to remember one phrase and you have a unique system of
+passwords.
+
+The idea behind this was originally taken from a system described in one of
+the comments on a blog ( url :
+http://www.schneier.com/blog/archives/2007/11/how_to_harvest.html#c220047 ).
+
+The goal is to have this project in Perl first and then port it to Mono for
+the benifit of Windows users.
+
+
