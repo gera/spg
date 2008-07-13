@@ -2,6 +2,7 @@
 use strict;
 
 use Digest::MD5;
+use Clipboard;
 sub askpass();
 
 my $sitename = shift
@@ -11,7 +12,8 @@ my $secret = askpass();
 my $md5 = Digest::MD5::md5_base64($secret . " " . $sitename);
 
 my $chars = $1 if($md5 =~ /^(.{10})/);
-print $chars, "\n";
+
+Clipboard->copy($chars);
 
 exit 0;
 
