@@ -13,7 +13,3 @@ The idea behind this was originally taken from a system described in one of
 the comments on a blog ( url :
 http://www.schneier.com/blog/archives/2007/11/how_to_harvest.html#c220047 ).
 
-The goal is to have this project in Perl first and then port it to Mono for
-the benifit of Windows users.
-
-
