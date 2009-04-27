@@ -27,7 +27,7 @@ import platform
 import sys
 import getopt
 import getpass
-from md5 import md5
+import hashlib
 from base64 import b64encode
 
 def usage():
@@ -93,7 +93,7 @@ def main(argv):
 
 	url = args[0]
 	passphrase = getpass.getpass("Passphrase: ")
-	passwd = b64encode(md5(passphrase + " " + url).digest())[:10]
+	passwd = b64encode(hashlib.md5(passphrase + " " + url).digest())[:10]
 
 	if record:
 		record_to_file(url, filename)
