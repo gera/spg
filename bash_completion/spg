@@ -1,0 +1,37 @@
+_spg()
+{
+	local cur cmds cmdOpts sites existing
+
+	COMPREPLY=()
+	cur=${COMP_WORDS[COMP_CWORD]}
+
+	cmds='-p --print -n --no-record'
+	sites=$( perl -pe 's/\n/ /' ~/.spg )
+	cmdOpts="$cmds $sites"
+
+	if [[ $COMP_CWORD -eq 1 ]] ; then
+		COMPREPLY=( $( compgen -W "$cmdOpts" -- $cur ) )
+		return 0
+	fi
+
+	existing=${cur}
+
+	case ${COMP_WORDS[1]} in
+	-p)
+		;;
+	--print)
+		;;
+	-n)
+		;;
+	--no-record)
+		;;
+	*)
+		cmdOpts=
+		;;
+	esac
+
+	COMPREPLY=( $( compgen -W "$cmdOpts" -- $cur ) )
+
+	return 0
+}
+complete -F _spg -o default spg
