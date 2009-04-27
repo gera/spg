@@ -23,6 +23,7 @@ version 2.
 """
 
 import os
+import platform
 import sys
 import getopt
 import getpass
@@ -101,7 +102,8 @@ def main(argv):
 		print passwd
 		return
 
-	copy_to_clipboard(passwd)
+        win32 = (platform.system().lower() == "windows")
+	copy_to_clipboard(passwd, win32)
 	return
 
 if __name__ == "__main__":
