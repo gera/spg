@@ -74,7 +74,12 @@ def copy_to_clipboard(string, win32=False):
 def main(argv):
 	no_copy = False
 	record = True
-	filename = os.environ['HOME'] + "/.spg"
+        win32 = (platform.system().lower() == "windows")
+	if win32:
+		key = 'USERPROFILE'
+	else:
+		key = 'HOME'
+	filename = os.path.join(os.environ[key], ".spg")
 
 	try:
 		opts, args = getopt.getopt(argv, "pn", ["print", "no-record"])
@@ -102,7 +107,6 @@ def main(argv):
 		print passwd
 		return
 
-        win32 = (platform.system().lower() == "windows")
 	copy_to_clipboard(passwd, win32)
 	return
 
