@@ -71,10 +71,11 @@ def copy_to_clipboard(string, win32=False):
 			sys.exit(2)
 
 
-def main(argv):
+def main():
+	argv = sys.argv[1:]
 	no_copy = False
 	record = True
-        win32 = (platform.system().lower() == "windows")
+	win32 = (platform.system().lower() == "windows")
 	if win32:
 		key = 'USERPROFILE'
 	else:
@@ -114,5 +115,5 @@ def main(argv):
 	return
 
 if __name__ == "__main__":
-	main(sys.argv[1:])
+	main()
 
