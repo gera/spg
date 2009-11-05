@@ -27,7 +27,16 @@ args = dict(
 if os.name == 'nt':
   import py2exe
   args["console"] = [{"script": "__init__.py", "dest_base": "spg"}]
-  args["options"] = {"py2exe": {"bundle_files": 1,}}
+  args["options"] = {"py2exe": {"bundle_files": 1,
+                                "excludes": [
+                                  "email", "ftplib", "doctest", "pyreadline",
+                                  "difflib", "pickle", "calendar", "unittest",
+                                  "subprocess", "multiprocessing", "threading",
+                                  "bz2", "bdb", "Queue", "smtplib", "ssl",
+                                  "_ssl", "xml", "xmllib", "xmlrpclib",
+                                  "unicodedata", "commctrl", "decimal",
+                                  "locale", "_socket", "random", "heapq",
+                                ]}}
   args["zipfile"] = None
 else:
   args['entry_points'] = {
