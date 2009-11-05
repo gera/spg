@@ -96,6 +96,9 @@ def main(argv):
 			usage()
 			sys.exit(2)
 
+	if args == []:
+		# this is primarily for the Win32 'click-on.exe' use case.
+		args.append(raw_input("Enter sitename: ").strip())
 	url = args[0]
 	passphrase = getpass.getpass("Passphrase: ")
 	passwd = b64encode(hashlib.md5(passphrase + " " + url).digest())[:10]
