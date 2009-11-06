@@ -99,7 +99,8 @@ def main():
 
 	if args == []:
 		# this is primarily for the Win32 'click-on.exe' use case.
-		args.append(raw_input("Enter sitename: ").strip())
+		input = get_input_with_readline(filename)
+		args.append(input.strip())
 	url = args[0]
 	passphrase = getpass.getpass("Passphrase: ")
 	passwd = b64encode(hashlib.md5(passphrase + " " + url).digest())[:10]
@@ -113,6 +114,44 @@ def main():
 
 	copy_to_clipboard(passwd, win32)
 	return
+
+
+def get_input_with_readline(filename):
+	"""
+	sets up readline support for entering sitenames, completed from the
+	existing list and accepts a line of input.
+	"""
+	if not os.path.exists(filename):
+		file(filename, "w").close()
+
+	all_lines = map(lambda x: x.strip(), file(filename).readlines())
+
+	def  completer(text, state):
+		"""
+		custom readline completer
+		"""
+		candidates = filter(lambda x: x.startswith(text), all_lines)
+		if state <= len(candidates):
+			return candidates[state-1]
+		else:
+			return None
+
+	try:
+		import readline
+		readline.set_completer(completer)
+		readline.read_history_file(filename)
+		readline.parse_and_bind('tab: complete')
+		if hasattr(readline, 'readline'):
+			print "sitename: ",
+			readline._issued = True
+			return readline.readline(history=all_lines, histfile=None)
+		else:
+			return raw_input("sitename: ")
+	except:
+		# no readline?
+		return raw_input("sitename: ")
+
+
 
 if __name__ == "__main__":
 	main()
